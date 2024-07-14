@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arbaz | Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap");
+
+      body {
+        font-family: "Roboto Mono", monospace;
+      }
+
+      .hobby-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .icon-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .icon {
+        transition: transform 0.3s ease;
+      }
+
+      .cursor-follow {
+        width: 6px;
+        height: 6px;
+        background-color: whitesmoke;
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease-in;
+        transition: all 0.2s ease;
+      }
+
+      .gradient-text {
+        background: linear-gradient(45deg, #6366f1, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .bg-grid {
+        background-image: linear-gradient(
+            to right,
+            #ffffff0a 1px,
+            transparent 1px
+          ),
+          linear-gradient(to bottom, #ffffff0a 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+
+      .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+      }
+
+      .animate-fade-in-delay {
+        animation: fade-in 1s ease-out 0.5s forwards;
+        opacity: 0;
+      }
+
+      .hero-content {
+        position: relative;
+      }
+
+      .hero-content::before,
+      .hero-content::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        filter: blur(100px);
+        z-index: -1;
+      }
+
+      .hero-content::before {
+        top: -100px;
+        left: -100px;
+        background-color: rgba(99, 101, 241, 0.22);
+      }
+
+      .hero-content::after {
+        bottom: -100px;
+        right: -100px;
+        background-color: rgba(139, 92, 246, 0.22);
+      }
+
+      @keyframes dash_682 {
+        72.5% {
+          opacity: 0;
+        }
+
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white overflow-x-hidden">
+    <div class="cursor-follow hidden lg:flex"></div>
+    <nav
+      class="fixed top-0 w-full p-4 z-50 bg-black bg-opacity-50 backdrop-blur-md"
+    >
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold gradient-text">.scriptSmith()</a>
+        <ul class="hidden lg:flex space-x-4">
+          <li>
+            <a href="#about" class="hover:text-[#6366f0] transition-all"
+              >about();</a
+            >
+          </li>
+          <li>
+            <a href="#projects" class="hover:text-[#6366f0] transition-all"
+              >projects();</a
+            >
+          </li>
+          <li>
+            <a href="#contact" class="hover:text-[#6366f0] transition-all"
+              >contact();</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main data-scroll-container>
+      <section
+        id="hero"
+        class="h-screen bg-grid flex flex-col items-center justify-center relative overflow-hidden"
+      >
+        <canvas id="particleCanvas" class="absolute inset-0 z-0"></canvas>
+        <div
+          class="hero-content text-center z-10 bg-black bg-opacity-30 p-6 rounded-lg"
+        >
+          <h1 class="text-6xl font-semibold mb-8 gradient-text animate-fade-in">
+            Hi there, I'm Arbaz
+          </h1>
+          <p class="text-xl mb-8 animate-fade-in-delay">
+            <span id="typed-text"></span>Developer
+          </p>
+        </div>
+      </section>
+
+      <section id="about" class="min-h-screen p-4 sm:p-4 flex items-center">
+        <div class="container mx-auto">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 gradient-text">
+            .about()
+          </h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <div>
+              <p class="mb-4 text-sm sm:text-base">
+                Hello! I'm a creative frontend developer passionate about
+                building beautiful and functional web experiences. With a keen
+                eye for design and a love for clean code, I strive to create
+                websites that not only look great but also perform
+                exceptionally.
+              </p>
+              <h3 class="text-lg sm:text-xl font-semibold mb-3">
+                My development toolkit includes:
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="" data-scroll data-scroll-speed="0.2">
+                  <h2
+                    class="text-lg sm:text-xl gradient-text font-semibold mb-2"
+                  >
+                    Frontend
+                  </h2>
+                  <ul class="list-disc list-inside text-sm sm:text-base">
+                    <li>HTML5 & CSS3</li>
+                    <li>JavaScript (ES6+)</li>
+                    <li>React.js</li>
+                    <li>Next.js 14</li>
+                    <li>Tailwind CSS</li>
+                    <li>GSAP for Animations</li>
+                    <li>ScrollTrigger</li>
+                  </ul>
+                </div>
+                <div data-scroll data-scroll-speed="0.5">
+                  <h2
+                    class="text-lg sm:text-xl gradient-text font-semibold mb-2"
+                  >
+                    Backend
+                  </h2>
+                  <ul class="list-disc list-inside text-sm sm:text-base">
+                    <li>Node.js</li>
+                    <li>Express.js</li>
+                    <li>MongoDB & Mongoose</li>
+                    <li>GraphQL</li>
+                    <li>WebSockets</li>
+                    <li>MVC Pattern</li>
+                    <li>Webhooks</li>
+                  </ul>
+                </div>
+                <div data-scroll data-scroll-speed="1">
+                  <h2
+                    class="text-lg sm:text-xl gradient-text font-semibold mb-2"
+                  >
+                    State Management
+                  </h2>
+                  <ul class="list-disc list-inside text-sm sm:text-base">
+                    <li>Redux</li>
+                  </ul>
+                </div>
+                <div data-scroll data-scroll-speed="1.2">
+                  <h2
+                    class="text-lg sm:text-xl gradient-text font-semibold mb-2"
+                  >
+                    Authentication
+                  </h2>
+                  <ul class="list-disc list-inside text-sm sm:text-base">
+                    <li>JWT Authentication</li>
+                    <li>Cookie-based Auth & Sessions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              data-scroll
+              data-scroll-speed="0.8"
+              class="bg-indigo-900 bg-opacity-15 h-fit py-4 px-3 rounded-lg mt-5 lg:mt-0"
+            >
+              <h3 class="text-xl sm:text-2xl font-bold mb-4">Skills</h3>
+              <div class="space-y-3">
+                <div class="flex justify-between text-sm sm:text-base">
+                  <span>Frontend Development</span>
+                  <span class="text-indigo-400">90%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="bg-indigo-600 h-2 rounded-full"
+                    style="width: 90%"
+                  ></div>
+                </div>
+                <div class="flex justify-between text-sm sm:text-base">
+                  <span>Backend Development</span>
+                  <span class="text-indigo-400">85%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="bg-indigo-600 h-2 rounded-full"
+                    style="width: 85%"
+                  ></div>
+                </div>
+                <div class="flex justify-between text-sm sm:text-base">
+                  <span>UI/UX</span>
+                  <span class="text-indigo-400">60%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div
+                    class="bg-indigo-600 h-2 rounded-full"
+                    style="width: 60%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="min-h-screen py-16 px-4">
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold mb-8 gradient-text">.projects()</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project Card 1 -->
+            <div
+              data-scroll
+              data-scroll-speed="1"
+              class="bg-white bg-opacity-[10%] rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105"
+            >
+              <img
+                src="/assets/project 1.png"
+                alt="Project 1"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-bold mb-2">Treohm Analytics</h3>
+                <p class="text-gray-400 mb-4">
+                  Treohm Analytics is a data visualization platform built with Next.js 14. It offers real-time insights through interactive charts and dashboards, ensuring seamless performance with server-side rendering and responsive design.
+                </p>
+                <a
+                  href="https://treohm.vercel.app/"
+                  class="gradient-text hover:underline"
+                  >View Project</a
+                >
+              </div>
+            </div>
+            <!-- Project Card 2 -->
+            <div
+              data-scroll
+              data-scroll-speed="1"
+              class="bg-white bg-opacity-[10%] rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105"
+            >
+              <img
+                src="/assets/project 2.png"
+                alt="Project 2"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-bold mb-2">MS Technologies</h3>
+                <p class="text-gray-400 mb-4">
+                  MS Technologies is a cutting-edge IT solutions website developed with Next.js 14. It showcases the company's services, projects, and client testimonials, all optimized for speed and performance through server-side rendering and a responsive design.
+                </p>
+                <a
+                  href="https://ms-tech-website.vercel.app/"
+                  class="gradient-text hover:underline"
+                  >View Project</a
+                >
+              </div>
+            </div>
+            <!-- Project Card 3 -->
+            <div
+              data-scroll
+              data-scroll-speed="1"
+              class="bg-white bg-opacity-[10%] rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105"
+            >
+              <img
+                src="/assets/project 3.png"
+                alt="Project 3"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-bold mb-2">Envision Interiors</h3>
+                <p class="text-gray-400 mb-4">
+                  Envision Interiors is a beautifully crafted design portfolio built with Next.js 14. It showcases stunning interior projects, detailed service offerings, ensuring a seamless experience with server-side rendering and responsive design.
+                </p>
+                <a
+                  href="https://interior-template.vercel.app/"
+                  class="gradient-text hover:underline"
+                  >View Project</a
+                >
+              </div>
+            </div>
+            <!-- Add more project cards here -->
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="work-process"
+        class="min-h-screen py-16 px-4 sm:p-4 flex items-center"
+      >
+        <div class="container mx-auto">
+          <h2
+            class="text-4xl sm:text-4xl font-bold mb-6 sm:mb-12 gradient-text"
+          >
+            .workProcess()
+          </h2>
+          <div
+            id="process-cards"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            <div
+              class="process-card p-4 sm:p-6 rounded-lg border border-indigo-600"
+            >
+              <div class="text-3xl sm:text-4xl gradient-text mb-4">01</div>
+              <h2 class="text-xl font-semibold sm:text-2xl mb-3">Discovery</h2>
+              <p class="text-sm text-gray-400">
+                // I start by understanding project goals, target audience, and
+                project requirements. This phase involves in-depth discussions
+                and research to lay a solid foundation.
+              </p>
+            </div>
+
+            <div
+              class="process-card p-4 sm:p-6 rounded-lg border border-indigo-600"
+            >
+              <div class="text-3xl sm:text-4xl gradient-text mb-4">02</div>
+              <h2 class="text-xl font-semibold sm:text-2xl mb-3">Planning</h2>
+              <p class="text-sm text-gray-400">
+                // Based on the discovery, I create a detailed project plan,
+                including timelines, milestones, and technical specifications.
+                This ensures we're aligned on expectations.
+              </p>
+            </div>
+
+            <div
+              class="process-card p-4 sm:p-6 rounded-lg border border-indigo-600"
+            >
+              <div class="text-3xl sm:text-4xl gradient-text mb-4">03</div>
+              <h2 class="text-xl font-semibold sm:text-2xl mb-3">
+                Development
+              </h2>
+              <p class="text-sm text-gray-400">
+                // I bring the project to life through iterative development
+                cycles. This phase involves coding, regular check-ins, and
+                continuous testing to ensure quality.
+              </p>
+            </div>
+
+            <div
+              class="process-card p-4 sm:p-6 rounded-lg border border-indigo-600"
+            >
+              <div class="text-3xl sm:text-4xl gradient-text mb-4">04</div>
+              <h2 class="text-xl font-semibold sm:text-2xl mb-3">
+                Launch & Support
+              </h2>
+              <p class="text-sm text-gray-400">
+                // After thorough testing, I deploy the project and provide
+                ongoing support. I'm committed to ensuring your project's
+                success even after launch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="hobbies" class="py-16 px-4">
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold mb-12 gradient-text">
+            .hobbies() <br />
+            .interests()
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div
+              class="hobby-card p-6 border border-indigo-600 rounded-lg transition-all duration-300 hover:border-indigo-400"
+            >
+              <div class="text-4xl mb-4 gradient-text">
+                <i class="fas fa-code"></i>
+              </div>
+              <h4
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-xl font-semibold mb-2"
+              >
+                Coding
+              </h4>
+              <p
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-gray-400 text-sm"
+              >
+                // Crafting elegant solutions and bringing ideas to life through
+                code.
+              </p>
+            </div>
+
+            <div
+              class="hobby-card p-6 border border-indigo-600 rounded-lg transition-all duration-300 hover:border-indigo-400"
+            >
+              <div class="text-4xl mb-4 gradient-text">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <h4
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-xl font-semibold mb-2"
+              >
+                Gaming
+              </h4>
+              <p
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-gray-400 text-sm"
+              >
+                // Immersing in virtual worlds and enjoying interactive
+                storytelling.
+              </p>
+            </div>
+
+            <div
+              class="hobby-card p-6 border border-indigo-600 rounded-lg transition-all duration-300 hover:border-indigo-400"
+            >
+              <div class="text-4xl mb-4 gradient-text">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h4
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-xl font-semibold mb-2"
+              >
+                Web Design
+              </h4>
+              <p
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-gray-400 text-sm"
+              >
+                // Exploring innovative website designs and UX patterns.
+              </p>
+            </div>
+
+            <div
+              class="hobby-card p-6 border border-indigo-600 rounded-lg transition-all duration-300 hover:border-indigo-400"
+            >
+              <div class="text-4xl mb-4 gradient-text">
+                <i class="fas fa-microchip"></i>
+              </div>
+              <h4
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-xl font-semibold mb-2"
+              >
+                New Tech
+              </h4>
+              <p
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-gray-400 text-sm"
+              >
+                // Staying on the cutting edge of emerging technologies and
+                trends.
+              </p>
+            </div>
+
+            <div
+              class="hobby-card p-6 border border-indigo-600 rounded-lg transition-all duration-300 hover:border-indigo-400"
+            >
+              <div class="text-4xl mb-4 gradient-text">
+                <i class="fab fa-youtube"></i>
+              </div>
+              <h4
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-xl font-semibold mb-2"
+              >
+                YouTube
+              </h4>
+              <p
+                data-scroll
+                data-scroll-speed="0.4"
+                class="text-gray-400 text-sm"
+              >
+                // Consuming and creating content on various tech-related
+                topics.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="min-h-screen py-16 px-4 flex items-center">
+        <div class="container mx-auto">
+          <h2 class="text-4xl font-bold mb-8 gradient-text">.contact()</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <p class="mb-4">
+                Interested in working together? Let's connect! Fill out the
+                form, and I'll get back to you as soon as possible.
+              </p>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="mailto:your.email@example.com"
+                    class="flex items-center gradient-text hover:underline"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="#6366f0"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                      ></path>
+                      <path
+                        d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                      ></path>
+                    </svg>
+                    your.email@example.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gradient-text hover:underline"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="#6366f0"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                      ></path>
+                    </svg>
+                    GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://linkedin.com/in/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gradient-text hover:underline"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="#6366f0"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.401c-.966 0-1.75-.785-1.75-1.749 0-.965.784-1.75 1.75-1.75.966 0 1.75.785 1.75 1.75 0 .964-.784 1.749-1.75 1.749zm13.5 11.401h-3v-5.5c0-1.382-.025-3.166-2.075-3.166-2.075 0-2.394 1.621-2.394 3.067v5.599h-3v-10h2.884v1.367h.04c.403-.764 1.384-1.567 2.85-1.567 3.049 0 3.608 2.007 3.608 4.617v5.583z"
+                      ></path>
+                    </svg>
+                    LinkedIn
+                  </a>
+                </li>
+                <!-- Add more contact links here -->
+              </ul>
+            </div>
+            <form class="space-y-4">
+              <div>
+                <label for="name" class="block mb-2">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 focus:outline-none focus:border-indigo-500"
+                  required
+                />
+              </div>
+              <div>
+                <label for="email" class="block mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 focus:outline-none focus:border-indigo-500"
+                  required
+                />
+              </div>
+              <div>
+                <label for="message" class="block mb-2">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 focus:outline-none focus:border-indigo-500"
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="/script.js"></script>
+  </body>
+</html>
